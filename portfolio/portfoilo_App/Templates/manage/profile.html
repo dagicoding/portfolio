@@ -1,0 +1,104 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>profile</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap5.3.8/css/bootstrap.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+<body>
+    <div class="d-flex">
+       <!-- Sidebar -->
+        <div class="sidebar">
+            <h3><i class="fas fa-shield-alt me-2"></i> Admin</h3>
+            
+            <nav class="mt-3">
+                <a href="{% url 'admin' %}" class="nav-link ">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{% url 'profile' %}" class="nav-link active">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="{% url 'manage_skills' %}" class="nav-link">
+                    <i class="fas fa-star"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="{% url 'manageWorks' %}" class="nav-link">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Works</span>
+                </a>
+                <a href="{% url 'manageContact' %}" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="{% url 'message' %}" class="nav-link">
+                    <i class="fas fa-message"></i>
+                    <span>Messages</span>
+                </a>
+            </nav>
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow-1">
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="d-flex align-items-center gap-3">
+                    <h4 class="mb-0 fw-semibold">Dashboard</h4>
+                </div>
+                
+                <div class="d-flex align-items-center gap-4">
+                    <div class="input-group" style="width: 280px;">
+                        <input type="text" class="form-control bg-transparent border-0 text-light" 
+                               placeholder="Search..." style="background: rgba(255,255,255,0.08);">
+                    </div>
+                    
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fas fa-bell fs-5" style="cursor: pointer;"></i>
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="https://via.placeholder.com/36" alt="User" 
+                                 class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover;">
+                            <div>
+                                <strong style="font-size: 0.95rem;">Dagi</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area text-black">
+                <h1 class="text-center mb-3">Manage Your profile</h1>
+                <div class="profileArea" style="display: flex; justify-content: center;">
+                    <div class="profile p-5 text-white rounded " style="  display: flex; justify-content: center;  gap: 10px; background-color: #152331;">
+                        {% for item in profile %}
+                            {% if item.profile_img %}
+                            <div><img  style=" object-fit: cover; border-radius: 50%; border: 6px solid white; width: 150px; height: 150px;" src="{{item.profile_img.url}}" alt="{{item.profile_img}}"></div>
+                            {% endif %}
+                            <div class="about">{{item.description}}</div>
+                             <div class="action"> <a class="btn btn-warning" href ="{% url 'updateProfile' item.profile_id %}"><i class="fa-regular fa-pen-to-square"></i></a></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'bootstrap5.3.8/js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>
+</html>

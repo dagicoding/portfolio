@@ -1,0 +1,176 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dagimawi Portfolio</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap5.3.8/css/bootstrap.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container-fluid p-0">
+      <!-- Navbar -->
+      <header class="header p-3">
+        <nav class="nav-bar mt-3">
+          <a href="#home" class="active">Home</a>
+          <a href="#work">Works</a>
+          <a href="#Contact">Contact</a>
+        </nav>
+      </header>
+
+      <!-- Hero Section -->
+      <section class="home d-flex align-items-center" id="home">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-6 profile-container">
+              <div class="profile-frame">
+                {% for img in homeprofile %}
+                <!---->
+                {% if img.profile_img %}
+                <img
+                  src="{{img.profile_img.url}}"
+                  alt="{{img.profile_img}}"
+                  class="profile-img"
+                />
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-md-6 text-white">
+              <div class="about-content p-2">
+                <h4 class="text" style="color: #00ffff">Hey!</h4>
+                <h1 class="display-4 fw-bold">My Name is Dagimawi Tarekegne</h1>
+                <p class="lead">
+                  I am a
+                  <span
+                    id="typing-text"
+                    class="fw-bold"
+                    style="color: #00ffff"
+                  ></span
+                  ><span class="cursor">|</span>
+                </p>
+                <p class="text-secondary">{{img.description}}</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <div class="skills-section py-5">
+        <h5 class="text-center text-muted mb-4">SKILLS</h5>
+        <div class="scroll-wrapper">
+          <div class="scroll-track">
+            {% for skill in homeskills %}
+            <img src="{{skill.skill_icon.url}}" alt="skill.skill_name" />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Works Section -->
+      <section class="works-section" id="work">
+        <div class="works-container">
+          <p class="works-subtitle text-center">Exploar my works here</p>
+          <div class="mywork text-center">
+            <h2 class="section-title">MY WORKS</h2>
+          </div>
+
+          <div class="gallery-wrapper">
+            <!-- Left Arrow -->
+            <button class="gallery-arrow arrow-left" id="arrow-left">
+              &#8592;
+            </button>
+
+            <!-- Cards Track -->
+            <div class="gallery-scroll" id="gallery-scroll">
+              {% for work in homeworks %}
+              <div class="pg-card" data-speed="0.3">
+                <img src="{{work.design_img.url}}" alt="{{work.design_name}}" />
+                <div class="pg-card-info">
+                  <h3>{{work.design_name}}</h3>
+                  <p>{{work.type_of_work}}</p>
+                  <a href="#" class="btn btn-light mt-2">More</a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Right Arrow -->
+            <button class="gallery-arrow arrow-right" id="arrow-right">
+              &#8594;
+            </button>
+          </div>
+
+          <!-- Scrollbar track -->
+          <div class="gallery-scrollbar-wrap">
+            <div class="gallery-scrollbar-track">
+              <div class="gallery-scrollbar-thumb" id="scrollbar-thumb"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="Contact">
+        <div class="contanier">
+          <div class="row p-5 bg-white text-black">
+            {% for contact in homeContact %}
+            <div class="col-md-6 contact-address mb-3">
+              <h1 style="font-size: 50px">Get in touch</h1>
+
+              <div class="email mb-3">
+                <b>Email:</b><br />
+                <h6 class="contact-label">
+                  <i class="fa-solid fa-envelope"></i>
+                  {{contact.email}}
+                </h6>
+              </div>
+              <div class="phone mb-3">
+                <b>Phone:</b><br />
+                <h6 class="contact-label">
+                  <i class="fa-solid fa-square-phone"></i> {{contact.phone}}
+                </h6>
+              </div>
+              <div class="social-media" style="font-size: 20px">
+                <b>contact me</b><br />
+                <i class="fa-brands fa-telegram"></i>
+                <i class="fa-brands fa-tiktok"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="col-md-6">
+              <hr />
+              <form
+                action="{% url 'home' %}"
+                style="display: flex; flex-direction: column; gap: 10px"
+                method="POST"
+              >
+                {% csrf_token %} {{form.as_p}}
+                <button class="btn btn-dark form-control" type="submit">
+                  send
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
