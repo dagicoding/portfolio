@@ -1,0 +1,68 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My works</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap5.3.8/css/bootstrap.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="redirect-work p-4 mb-5">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center">
+            <img
+              src="{{work.design_img.url}}"
+              alt="{{work.design_name}}"
+              class="img-fluid shadow"
+            />
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <span class="badge bg-primary mb-2">{{work.type_of_work}}</span>
+            <h2 class="display-5 fw-bold">{{work.design_name}}</h2>
+            <p class="lead text-secondary">
+              This project highlights creative direction and specialized
+              {{work.type_of_work}} techniques.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-center mb-4">Related Works</h3>
+      <div class="row justify-content-center">
+        {% for works in allwork %} {% if works.works_id != work.works_id %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+          <a
+            href="{% url 'morework' works.works_id %}"
+            class="text-white text-decoration-none"
+          >
+            <div class="works-card text-center">
+              <img
+                src="{{works.design_img.url}}"
+                alt="{{works.design_name}}"
+                class="img-fluid"
+              />
+              <div class="card-info mt-3">
+                <h3>{{works.design_name}}</h3>
+                <p>{{works.type_of_work}}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

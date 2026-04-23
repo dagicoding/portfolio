@@ -15,6 +15,7 @@ urlpatterns = [
     path('manage/manageWorks/', views.manageWorks, name = 'manageWorks'),
     path('delete-work/<int:works_id>/', views.deleteWork, name = 'deleteWork'),
     path('updateWork/<int:works_id>/', views.updateWork, name = 'updateWork'),
+    path('moreworks/<int:works_id>/', views.morework_view, name = 'morework'),
     path('manage/contact/', views.contact_view, name = 'manageContact'),
     path('updateContact/<int:Contact_id>/', views.updateContact, name = 'updateContact'),
     path('manage/messages/', views.message_view, name = 'message'),

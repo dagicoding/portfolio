@@ -391,6 +391,56 @@ textarea {
   height: 50px;
 }
 
+/* General Layout Improvements */
+
+.redirect-work {
+  background: #1a1a1a;
+  border-radius: 15px;
+  margin-top: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Image Handling */
+.redirect-work img,
+.works-card img {
+  object-fit: cover; /* This prevents images from stretching */
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  width: 100%; /* Make it responsive */
+  max-width: 320px;
+}
+
+/* Card Hover Effects */
+.works-card {
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+.works-card:hover {
+  transform: translateY(-10px); /* Lifts the card up */
+}
+
+.works-card img:hover {
+  filter: brightness(1.1);
+}
+
+/* Typography */
+.card-info h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.card-info p {
+  font-size: 0.9rem;
+  color: #aaaaaa;
+}
+
+.related-works {
+  border-top: 1px solid #333;
+}
+
 @media (max-width: 992px) {
   .sidebar {
     width: 72px;

@@ -118,6 +118,12 @@ def updateWork(request, works_id):
         form = WorkForm(instance= work)
     return render(request, 'update/updateWork.html', {'form' : form, 'work' : work})
 
+
+def morework_view(request, works_id):
+    allwork = Works.objects.all()
+    work_item = get_object_or_404(Works, works_id = works_id)
+    return render(request, 'mainpages/more.html', {'work' : work_item, 'allwork': allwork})
+
 def contact_view(request):
     contact = Contact.objects.all()
     return render(request, 'manage/manageContact.html', {'contact' : contact})

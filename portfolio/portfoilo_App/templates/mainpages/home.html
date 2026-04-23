@@ -102,7 +102,11 @@
                 <div class="pg-card-info">
                   <h3>{{work.design_name}}</h3>
                   <p>{{work.type_of_work}}</p>
-                  <a href="#" class="btn btn-light mt-2">More</a>
+                  <a
+                    href="{% url 'morework' work.works_id %}"
+                    class="btn btn-light mt-2"
+                    >More</a
+                  >
                 </div>
               </div>
               {% endfor %}
