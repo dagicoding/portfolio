@@ -21,7 +21,7 @@
   <body>
     <div class="container py-5">
       <div class="redirect-work p-4 mb-5">
-        <div class="row align-items-center">
+        <div class="row align-items-center bg-white p-3 rounded">
           <div class="col-md-6 text-center">
             <img
               src="{{work.design_img.url}}"
@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-6 mt-4 mt-md-0">
             <span class="badge bg-primary mb-2">{{work.type_of_work}}</span>
-            <h2 class="display-5 fw-bold">{{work.design_name}}</h2>
+            <h2 class="display-5 fw-bold text-black">{{work.design_name}}</h2>
             <p class="lead text-secondary">
               This project highlights creative direction and specialized
               {{work.type_of_work}} techniques.
@@ -40,22 +40,22 @@
         </div>
       </div>
 
-      <h3 class="text-center mb-4">Related Works</h3>
-      <div class="row justify-content-center">
+      <h3 class="text-center mb-5">Related Works</h3>
+      <div class="row">
         {% for works in allwork %} {% if works.works_id != work.works_id %}
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
           <a
             href="{% url 'morework' works.works_id %}"
-            class="text-white text-decoration-none"
+            class="text-black text-decoration-none"
           >
-            <div class="works-card text-center">
+            <div class="works-card text-center p-3 bg-white rounded">
               <img
                 src="{{works.design_img.url}}"
                 alt="{{works.design_name}}"
                 class="img-fluid"
               />
               <div class="card-info mt-3">
-                <h3>{{works.design_name}}</h3>
+                <b>{{works.design_name}}</b>
                 <p>{{works.type_of_work}}</p>
               </div>
             </div>

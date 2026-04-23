@@ -97,8 +97,10 @@
             <!-- Cards Track -->
             <div class="gallery-scroll" id="gallery-scroll">
               {% for work in homeworks %}
+
               <div class="pg-card" data-speed="0.3">
                 <img src="{{work.design_img.url}}" alt="{{work.design_name}}" />
+
                 <div class="pg-card-info">
                   <h3>{{work.design_name}}</h3>
                   <p>{{work.type_of_work}}</p>
@@ -109,6 +111,7 @@
                   >
                 </div>
               </div>
+
               {% endfor %}
             </div>
 
