@@ -32,14 +32,26 @@
           <div class="col-md-6 mt-4 mt-md-0">
             <span class="badge bg-primary mb-2">{{work.type_of_work}}</span>
             <h2 class="display-5 fw-bold text-black">{{work.design_name}}</h2>
-            <p class="lead text-secondary">
-              This project highlights creative direction and specialized
-              {{work.type_of_work}} techniques.
-            </p>
+            <p class="lead text-secondary">{{work.description}}</p>
           </div>
+
+          <div class="like text-black text-end mt-2">
+            <form action="{% url 'like' work.works_id %}" method="post">
+              {% csrf_token %} {{work.total_likes}} likes
+              <button type="submit" class="btn btn">
+                {% if work.works_id in request.session.liked_works %}
+                <i class="fa-solid fa-heart" style="color: red"></i>
+                {% else %}
+                <i class="fa-regular fa-heart"></i>
+                {% endif %}
+              </button>
+            </form>
+          </div>
+
+
+
         </div>
       </div>
-
       <h3 class="text-center mb-5">Related Works</h3>
       <div class="row">
         {% for works in allwork %} {% if works.works_id != work.works_id %}
@@ -48,7 +60,7 @@
             href="{% url 'morework' works.works_id %}"
             class="text-black text-decoration-none"
           >
-            <div class="works-card text-center p-3 bg-white rounded">
+            <div class="works-card text-black text-center p-3 bg-white rounded">
               <img
                 src="{{works.design_img.url}}"
                 alt="{{works.design_name}}"
@@ -58,9 +70,25 @@
                 <b>{{works.design_name}}</b>
                 <p>{{works.type_of_work}}</p>
               </div>
-            </div>
+            
+              
           </a>
+
+            <div class="like p-2 text-black text-end mt-2">
+            <form action="{% url 'like' works.works_id %}" method="post">
+              {% csrf_token %} {{works.total_likes}} likes
+              <button type="submit" class="btn btn">
+                {% if works.works_id in request.session.liked_works %}
+                <i class="fa-solid fa-heart" style="color: red"></i>
+                {% else %}
+                <i class="fa-regular fa-heart"></i>
+                {% endif %}
+              </button>
+            </form>
+          </div>
+
         </div>
+            </div>
         {% endif %} {% endfor %}
       </div>
     </div>

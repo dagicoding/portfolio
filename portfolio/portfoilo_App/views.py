@@ -38,7 +38,10 @@ def login_view(request):
     return render(request, 'manage/login.html', error)
 
 def admin_view(request):
-    return render(request, 'manage/dashboard.html')
+    skills = Skills.objects.count()
+    works = Works.objects.count()
+    messages = Message.objects.count()
+    return render(request, 'manage/dashboard.html', {'skills' : skills, 'works' : works, 'messages' : messages})
 
 
 def profile_view(request):
@@ -117,6 +120,22 @@ def updateWork(request, works_id):
     else:
         form = WorkForm(instance= work)
     return render(request, 'update/updateWork.html', {'form' : form, 'work' : work})
+
+def like_view(request, works_id):
+    work = get_object_or_404(Works, works_id = works_id)
+    liked_works = request.session.get('liked_works', [])
+
+    if works_id in liked_works:
+        liked_works.remove(works_id)
+        work.likes = max(0, work.likes -1 )
+    else:
+        liked_works.append(works_id)
+        work.likes +=1
+
+    request.session['liked_works'] = liked_works
+    work.save()
+
+    return redirect('morework', works_id=work.works_id)
 
 
 def morework_view(request, works_id):

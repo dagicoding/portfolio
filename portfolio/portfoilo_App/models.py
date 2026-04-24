@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
@@ -16,7 +17,12 @@ class Works(models.Model):
     design_name = models.CharField()
     type_of_work = models.CharField()
     link = models.CharField()
+    description = models.CharField()
     design_img = models.ImageField(upload_to='works/', null=True, blank=True)
+    likes = models.IntegerField(default=0)
+
+    def total_likes(self):
+        return self.likes
 
 class Contact(models.Model):
     Contact_id = models.AutoField(primary_key=True)
@@ -34,7 +40,7 @@ class Message(models.Model):
     message_id = models.AutoField(primary_key=True)
     name = models.CharField()
     email = models.EmailField()
-    message = models.CharField()
+    message = models.CharField(max_length=50)
     sent_date = models.DateTimeField(auto_now_add=True)
 
 

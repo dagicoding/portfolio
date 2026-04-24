@@ -387,6 +387,16 @@ body {
   background-color: #f8f9fa; /* Light grey background for contrast */
   min-height: 100vh;
 }
+.update {
+  padding: 20px;
+  display: block;
+  text-align: center;
+  width: 150px;
+  height: auto;
+  color: white;
+  background-color: #111d29;
+  border-radius: 10px;
+}
 textarea {
   height: 50px;
 }
@@ -394,7 +404,6 @@ textarea {
 /* General Layout Improvements */
 
 .redirect-work {
-  background: #1a1a1a;
   border-radius: 15px;
   margin-top: 50px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);

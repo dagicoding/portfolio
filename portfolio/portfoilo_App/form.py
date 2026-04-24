@@ -42,6 +42,7 @@ class WorkForm(forms.ModelForm):
             'design_name' : 'DESIGN NAME',
             'type_of_work' : 'TYPE OF WORK',
             'link' : 'LINK',
+            'description' : 'DESCRIPTION',
             'design_img' : 'DESIGN IMAGE'
         }
         widgets = {
@@ -51,6 +52,8 @@ class WorkForm(forms.ModelForm):
                 attrs={'placholder' : 'describe the type of the work','class' : 'form-control'}),
             'link' : forms.TextInput(
                 attrs={'placholder' : 'Exploar link', 'class' : 'form-control'}),
+            'description' : forms.TextInput(
+                attrs={'placeholder' : 'about the work', 'class' : 'form-control'}),
             'design_img' : forms.FileInput(
                 attrs={'class' : 'form-control'}
             )

@@ -69,10 +69,9 @@
                     <div class="d-flex align-items-center gap-3">
                         <i class="fas fa-bell fs-5" style="cursor: pointer;"></i>
                         <div class="d-flex align-items-center gap-2">
-                            <img src="https://via.placeholder.com/36" alt="User" 
-                                 class="rounded-circle" style="width: 36px; height: 36px; object-fit: cover;">
+                            <span class="p-1 bg-primary" style=" width: 30px; height: 30px; border-radius: 50%; text-align: center;">{{request.user.username|first}}</span>
                             <div>
-                                <strong style="font-size: 0.95rem;">Dagi</strong>
+                                <strong style="font-size: 0.95rem;">{{request.user}}</strong>
                             </div>
                         </div>
                     </div>
@@ -80,8 +79,26 @@
             </div>
 
             <!-- Content Area -->
-            <div class="content-area">
-                
+            <div class="content-area text-black">
+                <div class="dashboard mt-5" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+                    <a href="{% url 'manage_skills' %}" style="text-decoration: none;">
+                        <div class="skills update">
+                        <h1>{{skills}}</h1>
+                        <small>skills</small>
+                    </div></a>
+                    <a href="{% url 'manageWorks' %}" style="text-decoration: none;">
+                    <div class="works update">
+                        <h1>{{works}}</h1>
+                        <small>Works</small>
+                    </div>
+                    </a>
+                    <a href="{% url 'message' %}" style="text-decoration: none;">
+                    <div class="messages update">
+                        <h1>{{messages}}</h1>
+                        <small>messages</small>
+                    </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

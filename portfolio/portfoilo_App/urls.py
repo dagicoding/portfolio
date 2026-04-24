@@ -16,6 +16,7 @@ urlpatterns = [
     path('delete-work/<int:works_id>/', views.deleteWork, name = 'deleteWork'),
     path('updateWork/<int:works_id>/', views.updateWork, name = 'updateWork'),
     path('moreworks/<int:works_id>/', views.morework_view, name = 'morework'),
+    path('like/<int:works_id>/', views.like_view, name = 'like'),
     path('manage/contact/', views.contact_view, name = 'manageContact'),
     path('updateContact/<int:Contact_id>/', views.updateContact, name = 'updateContact'),
     path('manage/messages/', views.message_view, name = 'message'),
