@@ -247,7 +247,8 @@ async function route() {
   $('#sidebarNav').innerHTML = NAV.map(([g, items]) => `<div class="sidebar-section">${g}</div>${items.map(([id, ic, lb]) => `<a href="#${id}" class="nav-link ${id === k ? 'active' : ''}"><i class="bi ${ic}"></i> ${lb}</a>`).join('')}`).join('');
   $('#topbarTitle').textContent = (NAV.flatMap(n => n[1]).find(i => i[0] === k) || [])[2] || 'Dashboard';
   $('#sidebar').classList.remove('open'); $('#sidebarOverlay').classList.remove('open');
-  body.innerHTML = '<div class="dash-loader"><div class="loader-ring"></div>Loading</div>';
+  body.innerHTML = `<div class="page-header"><div style="flex:1"><div class="sk" style="width:220px;height:28px;margin-bottom:10px"></div><div class="sk" style="width:340px;max-width:90%;height:13px"></div></div><div class="sk" style="width:130px;height:40px;border-radius:10px"></div></div>
+    <div class="panel">${Array(6).fill('<div class="sk-row"><div class="sk" style="width:52px;height:40px"></div><div style="flex:1"><div class="sk" style="width:40%;height:13px;margin-bottom:8px"></div><div class="sk" style="width:22%;height:10px"></div></div><div class="sk" style="width:70px;height:26px;border-radius:50px"></div><div class="sk" style="width:64px;height:30px"></div></div>').join('')}</div>`;
   try {
     cats = await all('categories');
     if (PAGES[k]) await PAGES[k](); else { body.innerHTML = '<div id="c"></div>'; await renderCollection(k, $('#c')); }

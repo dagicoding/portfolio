@@ -25,7 +25,6 @@ const thumb = w => w.cover_image ? `<img src="${esc(img(w.cover_image))}" alt="$
 
 /* ---------- Shell (nav / footer / overlays) ---------- */
 function shell() {
-  document.body.insertAdjacentHTML('afterbegin', '<div class="page-loader" id="pageLoader"><div class="loader-logo">Dagimawi.</div><div class="loader-ring"></div><div class="loader-bar"><span></span></div><div class="loader-text">Loading</div></div>');
   const a = n => page === n ? 'active' : '';
   document.body.insertAdjacentHTML('afterbegin', `
 <nav class="navbar navbar-expand-lg"><div class="container">
@@ -235,21 +234,46 @@ ${statsRow('80px 0')}`;
   }
 };
 
+/* ---------- Skeleton placeholders (shown until Firebase answers) ---------- */
+const sk = (w, h, x = '') => `<div class="sk" style="width:${w};height:${h};${x}"></div>`;
+const skCard = col => `<div class="${col}"><div class="sk-card"><div class="sk" style="aspect-ratio:4/3;border-radius:0"></div><div class="p-3">${sk('35%', '10px', 'margin-bottom:12px')}${sk('75%', '16px')}</div></div></div>`;
+const skGrid = (n, col = 'col-md-6 col-lg-4') => `<div class="row g-4">${Array(n).fill(skCard(col)).join('')}</div>`;
+const skHead = `<div class="text-center mb-5 sk-stack" style="display:flex;flex-direction:column;align-items:center">${sk('110px', '12px')}${sk('min(320px,70%)', '38px')}</div>`;
+const skeletons = {
+  home: () => `<section class="hero-section"><div class="container"><div class="row align-items-center g-5">
+    <div class="col-lg-6 order-2 order-lg-1 sk-stack">${sk('170px', '14px')}${sk('85%', '58px')}${sk('55%', '58px', 'margin-bottom:26px')}${sk('45%', '26px', 'margin-bottom:26px')}${sk('100%', '12px')}${sk('92%', '12px')}${sk('70%', '12px', 'margin-bottom:28px')}
+      <div class="d-flex gap-3 flex-wrap">${sk('160px', '50px', 'border-radius:50px')}${sk('140px', '50px', 'border-radius:50px')}</div></div>
+    <div class="col-lg-6 order-1 order-lg-2 text-center"><div class="sk sk-circle" style="width:min(340px,72vw);aspect-ratio:1;margin:auto"></div></div></div></div></section>
+    <section style="padding:3rem 0"><div class="container"><div class="row g-4">${Array(4).fill(`<div class="col-6 col-md-3">${sk('100%', '110px', 'border-radius:16px')}</div>`).join('')}</div></div></section>
+    <section style="padding:80px 0"><div class="container">${skHead}${skGrid(3)}</div></section>`,
+  works: () => `<section class="page-hero"><div class="container text-center sk-stack" style="display:flex;flex-direction:column;align-items:center">${sk('100px', '12px')}${sk('min(300px,70%)', '46px')}${sk('min(420px,80%)', '14px')}</div></section>
+    <section style="padding:0 0 100px"><div class="container"><div class="d-flex justify-content-center gap-2 flex-wrap mb-5">${Array(5).fill(sk('110px', '40px', 'border-radius:50px')).join('')}</div>${skGrid(6)}</div></section>`,
+  work: () => `<section class="page-hero" style="padding-bottom:60px"><div class="container">${sk('min(380px,90%)', '14px', 'margin-bottom:24px')}<div class="row g-5">
+    <div class="col-lg-8"><div class="sk" style="aspect-ratio:16/10;border-radius:20px"></div></div>
+    <div class="col-lg-4"><div class="sk-card p-4 sk-stack">${sk('90px', '12px')}${sk('85%', '30px', 'margin-bottom:22px')}${sk('100%', '12px')}${sk('100%', '12px')}${sk('65%', '12px', 'margin-bottom:26px')}${sk('45%', '12px')}${sk('100%', '48px', 'border-radius:50px;margin-top:20px')}</div></div></div></div></section>`,
+  about: () => `<section class="page-hero"><div class="container text-center sk-stack" style="display:flex;flex-direction:column;align-items:center">${sk('90px', '12px')}${sk('min(480px,85%)', '46px')}</div></section>
+    <section style="padding:0 0 80px"><div class="container"><div class="row g-5 align-items-center">
+    <div class="col-lg-5 text-center"><div class="sk sk-circle" style="width:min(320px,70vw);aspect-ratio:1;margin:auto"></div></div>
+    <div class="col-lg-7 sk-stack">${sk('100px', '12px')}${sk('55%', '36px', 'margin-bottom:20px')}${sk('100%', '12px')}${sk('96%', '12px')}${sk('100%', '12px')}${sk('60%', '12px', 'margin-bottom:24px')}${sk('150px', '48px', 'border-radius:50px')}</div></div></div></section>
+    <section style="padding:80px 0"><div class="container">${skHead}<div class="row g-4">${Array(4).fill(`<div class="col-md-6">${sk('100%', '48px')}</div>`).join('')}</div></div></section>`,
+};
+
 /* ---------- Boot ---------- */
 shell();
-const hideLoader = () => { const L = document.getElementById('pageLoader'); if (!L) return; L.classList.add('done'); setTimeout(() => L.remove(), 700); };
-setTimeout(hideLoader, 15000); // safety net if the network hangs
+const failHtml = '<div class="container text-center" style="padding:160px 0"><h2 class="section-title">Couldn\'t load <span>content</span></h2><p style="color:var(--text-secondary)">Please refresh the page.</p></div>';
 if (!isConfigured) {
   app.innerHTML = '<div class="container text-center" style="padding:160px 0"><h2 class="section-title">Almost <span>there</span></h2><p style="color:var(--text-secondary)">Add your Firebase config in <code>js/firebase-config.js</code>.</p></div>';
 } else {
+  app.innerHTML = skeletons[page]();
+  const timer = setTimeout(() => { app.innerHTML = failHtml; }, 15000); // network hung
   try {
     await load();
+    clearTimeout(timer);
     fillShell();
     app.innerHTML = pages[page]();
   } catch (e) {
-    console.error(e);
-    app.innerHTML = '<div class="container text-center" style="padding:160px 0"><h2 class="section-title">Couldn\'t load <span>content</span></h2><p style="color:var(--text-secondary)">Please refresh the page.</p></div>';
+    clearTimeout(timer); console.error(e);
+    app.innerHTML = failHtml;
   }
 }
 initUI();
-requestAnimationFrame(() => requestAnimationFrame(hideLoader));

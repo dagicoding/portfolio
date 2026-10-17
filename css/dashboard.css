@@ -143,10 +143,9 @@
     .work-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
     .work-thumb-placeholder { width: 44px; height: 44px; border-radius: 8px; background: var(--glass); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1rem; }
 
-/* ===== Loader ===== */
-.dash-loader{display:flex;flex-direction:column;align-items:center;gap:18px;padding:90px 0;color:var(--muted);font-size:.8rem;letter-spacing:2px;text-transform:uppercase}
-.loader-ring{position:relative;width:56px;height:56px}
-.loader-ring::before,.loader-ring::after{content:'';position:absolute;border-radius:50%;border:3px solid transparent}
-.loader-ring::before{inset:0;border-top-color:#007BFF;border-right-color:#00D4FF;animation:loaderSpin 1s linear infinite}
-.loader-ring::after{inset:9px;border-bottom-color:#00D4FF;border-left-color:#007BFF;animation:loaderSpin 1.5s linear infinite reverse}
-@keyframes loaderSpin{to{transform:rotate(360deg)}}
+/* ===== Skeleton loading ===== */
+.sk{position:relative;overflow:hidden;border-radius:8px;background:rgba(255,255,255,.07)}
+.sk::after{content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);animation:skShimmer 1.5s infinite}
+.sk-row{display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid var(--border)}
+@keyframes skShimmer{100%{transform:translateX(100%)}}
+@media(prefers-reduced-motion:reduce){.sk::after{animation:none}}
