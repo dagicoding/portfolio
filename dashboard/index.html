@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · Dagimawi Admin</title>
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">Dagimawi.<small>Admin Dashboard</small></div>
+  <div id="sidebarNav"></div>
+  <div class="sidebar-footer">
+    <a href="../index.html" class="nav-link" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Site</a>
+    <a href="#" id="logout" class="nav-link" style="color:#dc3545 !important"><i class="bi bi-box-arrow-right"></i> Logout</a>
+  </div>
+</aside>
+<div class="main-wrap">
+  <div class="topbar">
+    <button class="menu-toggle" id="menuToggle"><i class="bi bi-list"></i></button>
+    <div class="topbar-title" id="topbarTitle">Dashboard</div>
+    <a href="../index.html" class="btn-ghost" target="_blank" style="font-size:0.78rem;text-decoration:none;"><i class="bi bi-eye me-1"></i> Preview Site</a>
+    <div class="topbar-avatar" id="avatar">?</div>
+  </div>
+  <div class="page-body" id="pageBody"></div>
+</div>
+<script type="module" src="../js/dashboard.js"></script>
+</body>
+</html>

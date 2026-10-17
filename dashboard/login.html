@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Admin Login · Dagimawi Portfolio</title>
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+  <div class="login-card">
+    <div class="logo">Dagimawi.</div>
+    <div class="subtitle">Admin Dashboard — Owner access only</div>
+    <div class="error-msg" id="err" style="display:none"></div>
+    <form id="form">
+      <label>Email</label>
+      <div class="input-wrap"><i class="bi bi-envelope"></i><input type="email" id="email" placeholder="you@example.com" required autofocus></div>
+      <label>Password</label>
+      <div class="input-wrap"><i class="bi bi-lock"></i><input type="password" id="password" placeholder="••••••••" required></div>
+      <button class="btn-login" type="submit">Sign In</button>
+    </form>
+    <a class="back-link" href="../index.html">← Back to website</a>
+  </div>
+<script type="module">
+  import { auth, signInWithEmailAndPassword, onAuthStateChanged, isConfigured } from '../js/data.js';
+  const err = document.getElementById('err');
+  const show = m => { err.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> ' + m; err.style.display = 'block'; };
+  if (!isConfigured) show('Add your Firebase config in js/firebase-config.js first.');
+  onAuthStateChanged(auth, u => { if (u) location.href = 'index.html'; });
+  document.getElementById('form').onsubmit = async e => {
+    e.preventDefault(); err.style.display = 'none';
+    try { await signInWithEmailAndPassword(auth, email.value.trim(), password.value); }
+    catch (x) { show(x.code === 'auth/too-many-requests' ? 'Too many attempts. Try again later.' : 'Invalid email or password.'); }
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Everyone can read the public site content.
+    // Only YOUR account can change it. Replace the email below.
+    match /{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email == "YOUR_EMAIL@gmail.com";
+    }
+  }
+}
